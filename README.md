@@ -1,0 +1,2 @@
+# flutter_switch_color_controller_riverpod
+riverpod implementation of controller app
