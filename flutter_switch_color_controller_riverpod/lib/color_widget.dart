@@ -1,31 +1,15 @@
 import 'package:flutter/material.dart';
-import 'color_controller.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'color_provider.dart';
 
 
 
 
 // creates box 300x300 which colour is controlled by ColorController
-class ColorWidget extends StatefulWidget {
-  const ColorWidget({required this.controller, required this.color, Key? key})
-    : super(key: key);    
+class ColorWidget extends StatelessWidget {
+  const ColorWidget({required this.color, Key? key})
+      : super(key: key);    
   final Color color;
-  final ColorController controller;
-
-
-  @override
-  State<ColorWidget> createState() => _ColorWidgetState();
-}
-
-
-class _ColorWidgetState extends State<ColorWidget> {
-  @override
-  void initState() {
-    widget.controller.addListener( (){
-    // re render this component whenever controller calls notifyListener
-    setState(() {});
-  });
-  super.initState();
-  }
 
 
   @override
@@ -33,7 +17,7 @@ class _ColorWidgetState extends State<ColorWidget> {
     return Container(
       width: 300,
       height: 300,
-      color: widget.controller.color,
+      color: color,
     );
   }
 }

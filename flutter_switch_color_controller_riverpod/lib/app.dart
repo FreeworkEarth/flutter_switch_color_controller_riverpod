@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'home_page.dart';
+
+
+
+
 
 
 // top level widget renders Homepage
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  final title = "Switch color controller";
+  final title = "RIVERPOD exmpl: Switch color controller";
 
 
 

@@ -1,42 +1,24 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'color_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'color_provider.dart';
 import 'color_widget.dart';
 
 
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
    MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
-  void _changeColor() {
-    _controller.changeColor(
-      Colors.primaries[Random().nextInt(Colors.primaries.length)]);
-  }
-  
-  final Color _color = Colors.red;
-  final _controller = ColorController(Colors.red);
+
+final colorchangeProvider = StateProvider((ref) => null);
 
 
-    
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Color color  = ref.watch(colorStateProvider);
+
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -66,7 +48,7 @@ class MyHomePage extends StatelessWidget {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              ColorWidget(color: _color,  controller: _controller)
+              ColorWidget(color: color)
             /* const Text(
               'You have pushed the button this many times:',
             ),
@@ -78,7 +60,8 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:_changeColor,
+        onPressed: () => 
+        ref.read(colorStateProvider.notifier).state = getRandomColor(), // call function with ref to change colour
         //onPressed: _incrementCounter,
         tooltip: 'Change Color',
         child: const Icon(Icons.add),
